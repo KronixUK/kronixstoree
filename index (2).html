@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KRONIX Store • Grade & Specificații</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #111317;
+      --surface: #181a20;
+      --surface-hover: #20232b;
+      --border: #2b2f3a;
+      --accent: #ef4444;
+      --text: #f5f6f8;
+      --text-muted: #9ca3af;
+      --discord: #5865F2;
+      --discord-hover: #4752C4;
+      --success: #22c55e;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(circle at 50% -5%, rgba(239, 68, 68, 0.16) 0%, transparent 50%),
+        radial-gradient(circle at 85% 30%, rgba(88, 101, 242, 0.06) 0%, transparent 45%);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+      padding-bottom: 60px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    header {
+      text-align: center;
+      padding: 46px 16px 32px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 30px;
+    }
+
+    .server-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 7px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .server-badge:hover {
+      border-color: var(--accent);
+      color: var(--text);
+      transform: translateY(-1px);
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 10px var(--success);
+    }
+
+    h1 {
+      font-size: clamp(30px, 5vw, 44px);
+      font-weight: 900;
+      letter-spacing: -0.025em;
+      text-transform: uppercase;
+    }
+
+    h1 span {
+      color: var(--accent);
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 15px;
+      max-width: 580px;
+      margin: 10px auto 0;
+    }
+
+    .season-banner {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(24, 26, 32, 0.96));
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 14px;
+    }
+
+    .season-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .season-banner strong {
+      color: #fca5a5;
+    }
+
+    .ranks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 22px;
+      margin-bottom: 50px;
+    }
+
+    .rank-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 26px 20px 22px;
+      text-align: center;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .rank-card:hover {
+      transform: translateY(-5px);
+      background: var(--surface-hover);
+      border-color: var(--rank-color, var(--accent));
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.5);
+    }
+
+    .top-tag {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(250, 204, 21, 0.16);
+      color: #fde047;
+      border: 1px solid rgba(250, 204, 21, 0.4);
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 999px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      z-index: 3;
+    }
+
+    .emblem-wrap {
+      width: 118px;
+      height: 118px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .slash-bg {
+      position: absolute;
+      width: 112px;
+      height: 20px;
+      background: linear-gradient(90deg, #dc2626, #ef4444);
+      transform: rotate(-42deg);
+      border-radius: 4px;
+      box-shadow: 0 4px 16px rgba(239, 68, 68, 0.4);
+      z-index: 1;
+    }
+
+    .emblem-shield {
+      position: relative;
+      z-index: 2;
+      width: 94px;
+      height: 94px;
+      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.65));
+      transition: transform 0.22s ease;
+    }
+
+    .rank-card:hover .emblem-shield {
+      transform: scale(1.06);
+    }
+
+    .rank-title {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      margin-bottom: 4px;
+    }
+
+    .rank-price {
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+
+    .specs-btn {
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: #252933;
+      border: 1px solid #353a48;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 14px;
+      padding: 11px 16px;
+      border-radius: 11px;
+      transition: all 0.2s ease;
+      margin-top: auto;
+    }
+
+    .rank-card:hover .specs-btn {
+      background: var(--rank-color, var(--accent));
+      border-color: var(--rank-color, var(--accent));
+      color: #0e1014;
+    }
+
+    .info-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      background: #3b82f6;
+      color: #fff;
+      font-weight: 900;
+      font-size: 13px;
+      font-family: Georgia, serif;
+    }
+
+    .contact-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 34px 24px;
+      text-align: center;
+    }
+
+    .contact-section h2 {
+      font-size: 23px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .contact-section p {
+      color: var(--text-muted);
+      font-size: 15px;
+      max-width: 600px;
+      margin: 0 auto 24px;
+    }
+
+    .discord-cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .discord-box {
+      background: #131519;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 270px;
+      justify-content: space-between;
+      transition: border-color 0.2s;
+    }
+
+    .discord-box:hover {
+      border-color: var(--discord);
+    }
+
+    .discord-info {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      text-align: left;
+    }
+
+    .discord-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(88, 101, 242, 0.16);
+      color: var(--discord);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .discord-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .discord-user {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      font-family: monospace;
+    }
+
+    .copy-btn {
+      background: var(--discord);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 13px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .copy-btn:hover {
+      background: var(--discord-hover);
+    }
+
+    .copy-btn.copied {
+      background: var(--success);
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(5px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 1000;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-card {
+      background: #181a20;
+      border: 1px solid #323745;
+      border-radius: 18px;
+      width: 100%;
+      max-width: 530px;
+      max-height: 88vh;
+      overflow-y: auto;
+      padding: 26px 22px;
+      position: relative;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8);
+      animation: popIn 0.18s ease-out;
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: #262a34;
+      border: 1px solid #383e4d;
+      color: var(--text);
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-close:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .modal-header {
+      text-align: center;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 18px;
+    }
+
+    .modal-rank-name {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+    }
+
+    .modal-rank-price {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--accent);
+      margin-top: 4px;
+    }
+
+    .modal-subtitle {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .perms-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .perms-list li {
+      background: #131519;
+      border: 1px solid #282c37;
+      border-radius: 8px;
+      padding: 8px 11px;
+      font-size: 13.5px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #e5e7eb;
+    }
+
+    .snowflake {
+      color: #60a5fa;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .modal-surprise {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 13px;
+      color: #fca5a5;
+      margin-bottom: 18px;
+      line-height: 1.45;
+    }
+
+    .modal-discord-cta {
+      display: block;
+      width: 100%;
+      text-align: center;
+      background: var(--discord);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 13px 16px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .modal-discord-cta:hover {
+      background: var(--discord-hover);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 34px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="server-badge" onclick="copyText('play.kronix.uk', this)" title="Click pentru a copia IP-ul">
+      <span class="dot"></span>
+      <span>IP Server: <strong>play.kronix.uk</strong> (Click pt. copiere)</span>
+    </div>
+    <h1>KRONIX <span>STORE</span></h1>
+    <p class="subtitle">Apasă pe orice grad sau opțiune de mai jos pentru a vedea lista completă cu permisiunile și comenzile incluse.</p>
+  </header>
+
+  <main class="container">
+    <div class="season-banner">
+      <div class="season-icon">🎁</div>
+      <div>
+        <strong>Sezonul 1 KRONIX:</strong> Pentru că este primul sezon, gradele mai au și alte surprize, dar acelea le veți afla după achiziționare!
+      </div>
+    </div>
+
+    <div class="ranks-grid" id="ranksGrid"></div>
+
+    <section class="contact-section" id="contact-discord">
+      <h2>💬 Cum achiziționezi?</h2>
+      <p>Pentru achiziționare contactați-ne pe Discord pe unul dintre conturile de mai jos, iar acolo discutăm toate detaliile:</p>
+
+      <div class="discord-cards">
+        <div class="discord-box">
+          <div class="discord-info">
+            <div class="discord-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028z"/></svg>
+            </div>
+            <div>
+              <div class="discord-label">Discord 1</div>
+              <div class="discord-user">elsenior10._02118</div>
+            </div>
+          </div>
+          <button class="copy-btn" onclick="copyDiscord('elsenior10._02118', this)">Copiază</button>
+        </div>
+
+        <div class="discord-box">
+          <div class="discord-info">
+            <div class="discord-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028z"/></svg>
+            </div>
+            <div>
+              <div class="discord-label">Discord 2</div>
+              <div class="discord-user">naruto_sky</div>
+            </div>
+          </div>
+          <button class="copy-btn" onclick="copyDiscord('naruto_sky', this)">Copiază</button>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © 2026 KRONIX Network • play.kronix.uk
+    </footer>
+  </main>
+
+  <div class="modal-overlay" id="specsModal" onclick="closeModalOnBackdrop(event)">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModal()" aria-label="Închide">✕</button>
+      <div class="modal-header">
+        <div class="modal-rank-name" id="modalTitle">ANGEL</div>
+        <div class="modal-rank-price" id="modalPrice">29.00 EUR</div>
+      </div>
+
+      <div class="modal-subtitle" id="modalSubtitle">➔ Permisiuni și comenzi incluse:</div>
+      <ul class="perms-list" id="modalPerms"></ul>
+
+      <div class="modal-surprise">
+        ✨ <strong>Sezonul 1:</strong> Pentru că este primul sezon, gradele mai au și alte surprize, dar acelea le veți afla după achiziționare!
+      </div>
+
+      <button class="modal-discord-cta" onclick="goToDiscord()">
+        💬 Vreau asta — Contactează-ne pe Discord
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const items = [
+      {
+        name: "ANGEL",
+        price: "29.00 EUR",
+        badge: "CEL MAI PUTERNIC",
+        color: "#facc15",
+        icon: "👑",
+        permissions: [
+          "/nick",
+          "/private party",
+          "/pets",
+          "/gamemode creative",
+          "/gamemode spectator",
+          "/tp",
+          "/ptime",
+          "/hat",
+          "/dc (donorchat)",
+          "/condense",
+          "/fly",
+          "/repair hand",
+          "/repair all",
+          "/heal",
+          "/feed",
+          "/anvil",
+          "/recipe",
+          "/craft",
+          "/enderchest",
+          "/kit supreme + /kit special"
+        ]
+      },
+      {
+        name: "EMPEROR",
+        price: "21.00 EUR",
+        badge: "",
+        color: "#ef4444",
+        icon: "⚔️",
+        permissions: [
+          "/ptime",
+          "/hat",
+          "/dc (donorchat)",
+          "/condense",
+          "/fly",
+          "/repair hand",
+          "/repair all",
+          "/heal",
+          "/feed",
+          "/anvil",
+          "/recipe",
+          "/craft",
+          "/enderchest",
+          "/gamemode creative",
+          "/kit Emperor"
+        ]
+      },
+      {
+        name: "LEGEND",
+        price: "13.00 EUR",
+        badge: "",
+        color: "#a855f7",
+        icon: "🔥",
+        permissions: [
+          "/ptime",
+          "/hat",
+          "/donorchat",
+          "/enderchest",
+          "/fly",
+          "/repair hand",
+          "/repair all",
+          "/feed",
+          "/heal",
+          "/anvil",
+          "/tptoggle",
+          "/condense",
+          "/kit legend"
+        ]
+      },
+      {
+        name: "VOID",
+        price: "7.00 EUR",
+        badge: "",
+        color: "#38bdf8",
+        icon: "🌀",
+        permissions: [
+          "/ptime",
+          "/hat",
+          "/donorchat",
+          "/enderchest",
+          "/tptoggle",
+          "/fly",
+          "/repair hand",
+          "/feed",
+          "/heal",
+          "/anvil",
+          "/kit void"
+        ]
+      },
+      {
+        name: "ASTRYX",
+        price: "4.00 EUR",
+        badge: "",
+        color: "#4ade80",
+        icon: "⚡",
+        permissions: [
+          "/ptime",
+          "/hat",
+          "/donorchat",
+          "/enderchest",
+          "/fly",
+          "/kit astryx"
+        ]
+      },
+      {
+        name: "BATTLEPASS EXCLUSIVE",
+        price: "4.00 EUR",
+        badge: "SEZONUL 1",
+        color: "#f59e0b",
+        icon: "🎟️",
+        permissions: [
+          "Acces BattlePass Exclusive (Sezonul 1)",
+          "Recompense și surprize exclusive după achiziționare"
+        ]
+      },
+      {
+        name: "FLY",
+        price: "2.00 EUR",
+        badge: "",
+        color: "#38bdf8",
+        icon: "🕊️",
+        permissions: [
+          "/fly"
+        ]
+      }
+    ];
+
+    const grid = document.getElementById("ranksGrid");
+
+    items.forEach((item, index) => {
+      const card = document.createElement("div");
+      card.className = "rank-card";
+      card.style.setProperty("--rank-color", item.color);
+      card.onclick = () => openModal(index);
+
+      card.innerHTML = `
+        ${item.badge ? `<span class="top-tag">${item.badge}</span>` : ""}
+        <div class="emblem-wrap">
+          <div class="slash-bg"></div>
+          <svg class="emblem-shield" viewBox="0 0 100 100">
+            <polygon points="50,4 90,22 84,72 50,96 16,72 10,22" fill="#23262f" stroke="${item.color}" stroke-width="4"/>
+            <polygon points="50,12 82,27 77,68 50,88 23,68 18,27" fill="#171920"/>
+            <text x="50" y="54" text-anchor="middle" font-size="28">${item.icon}</text>
+            <rect x="12" y="70" width="76" height="16" rx="4" fill="#111318" stroke="${item.color}" stroke-width="1.5"/>
+            <text x="50" y="81" text-anchor="middle" fill="${item.color}" font-size="${item.name.length > 12 ? '7' : '10'}" font-weight="900" font-family="Inter, sans-serif">${item.name}</text>
+          </svg>
+        </div>
+        <div class="rank-title" style="color: ${item.color}">${item.name}</div>
+        <div class="rank-price">${item.price}</div>
+        <div class="specs-btn">
+          <span class="info-badge">i</span>
+          <span>Vezi specificații</span>
+        </div>
+      `;
+
+      grid.appendChild(card);
+    });
+
+    function openModal(index) {
+      const item = items[index];
+      const titleEl = document.getElementById("modalTitle");
+      titleEl.textContent = item.name;
+      titleEl.style.color = item.color;
+
+      document.getElementById("modalPrice").textContent = item.price;
+      document.getElementById("modalSubtitle").textContent = `➔ ${item.name} include următoarele:`;
+
+      const listEl = document.getElementById("modalPerms");
+      listEl.innerHTML = "";
+      item.permissions.forEach(perm => {
+        const li = document.createElement("li");
+        li.innerHTML = `<span class="snowflake">❄️</span><span>${perm}</span>`;
+        listEl.appendChild(li);
+      });
+
+      document.getElementById("specsModal").classList.add("active");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal() {
+      document.getElementById("specsModal").classList.remove("active");
+      document.body.style.overflow = "";
+    }
+
+    function closeModalOnBackdrop(e) {
+      if (e.target.id === "specsModal") {
+        closeModal();
+      }
+    }
+
+    function goToDiscord() {
+      closeModal();
+      document.getElementById("contact-discord").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function copyDiscord(username, btn) {
+      navigator.clipboard.writeText(username).then(() => {
+        const orig = btn.textContent;
+        btn.textContent = "Copiat ✓";
+        btn.classList.add("copied");
+        setTimeout(() => {
+          btn.textContent = orig;
+          btn.classList.remove("copied");
+        }, 2000);
+      });
+    }
+
+    function copyText(text, el) {
+      navigator.clipboard.writeText(text).then(() => {
+        const span = el.querySelector("span:last-child");
+        const orig = span.innerHTML;
+        span.innerHTML = `IP copiat: <strong>${text}</strong> ✓`;
+        setTimeout(() => {
+          span.innerHTML = orig;
+        }, 2000);
+      });
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeModal();
+    });
+  </script>
+</body>
+</html>
